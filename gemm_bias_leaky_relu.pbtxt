@@ -1,0 +1,128 @@
+node {
+  name: "input_a"
+  op: "Placeholder"
+  device: "/device:GPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 10
+        }
+        dim {
+          size: 256
+        }
+      }
+    }
+  }
+}
+node {
+  name: "input_b"
+  op: "Placeholder"
+  device: "/device:GPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 256
+        }
+        dim {
+          size: 128
+        }
+      }
+    }
+  }
+}
+node {
+  name: "input_c"
+  op: "Placeholder"
+  device: "/device:GPU:0"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 128
+        }
+      }
+    }
+  }
+}
+node {
+  name: "matmul"
+  op: "MatMul"
+  input: "input_a"
+  input: "input_b"
+  device: "/device:GPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "transpose_a"
+    value {
+      b: false
+    }
+  }
+  attr {
+    key: "transpose_b"
+    value {
+      b: false
+    }
+  }
+}
+node {
+  name: "add_bias"
+  op: "Add"
+  input: "matmul"
+  input: "input_c"
+  device: "/device:GPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+}
+node {
+  name: "activation"
+  op: "LeakyRelu"
+  input: "add_bias"
+  device: "/device:GPU:0"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "alpha"
+    value {
+      f: 0.20000000298023224
+    }
+  }
+}
+versions {
+  producer: 1136
+}
