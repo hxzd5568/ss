@@ -1,4 +1,4 @@
-onnx-example:ô
+onnx-example:¡
 
 X
 Yout_mul"MatMul
@@ -13,7 +13,10 @@
 	out_relu2out_exp"Exp
 
 out_exp
-Pout_sum"Sum
+Pout_sum"Add
+
+out_sum
+Zrout2"Reshape
 test-modelZ
 X
 
@@ -30,8 +33,8 @@ test-modelZ
 P
 
 
-b
-out_sum
+b
+rout2
 
 
 j
@@ -46,4 +49,6 @@ test-modelZ
 	out_relu2
 j
 out_exp
+j
+out_sum
 B
